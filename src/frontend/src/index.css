@@ -1,0 +1,217 @@
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@400;500;600;700;800&family=IBM+Plex+Sans+Thai:wght@400;500;600;700&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --font-display: "Noto Sans Thai", "IBM Plex Sans Thai", sans-serif;
+    --font-body: "IBM Plex Sans Thai", "Noto Sans Thai", sans-serif;
+    --font-mono: "IBM Plex Sans Thai", monospace;
+    --radius: 0.875rem;
+
+    /* Surfaces — light gray canvas, white cards */
+    --background: 0.975 0.004 155;
+    --foreground: 0.22 0.02 155;
+    --card: 1 0 0;
+    --card-foreground: 0.22 0.02 155;
+    --popover: 1 0 0;
+    --popover-foreground: 0.22 0.02 155;
+
+    /* Deep green primary */
+    --primary: 0.46 0.11 158;
+    --primary-foreground: 0.99 0.005 158;
+    --primary-soft: 0.94 0.035 158;
+
+    --secondary: 0.955 0.006 155;
+    --secondary-foreground: 0.3 0.02 155;
+    --muted: 0.955 0.006 155;
+    --muted-foreground: 0.52 0.015 155;
+
+    --accent: 0.93 0.04 158;
+    --accent-foreground: 0.32 0.09 158;
+
+    /* Status accents */
+    --destructive: 0.56 0.2 25;
+    --destructive-foreground: 0.99 0.005 25;
+    --destructive-soft: 0.95 0.04 25;
+
+    --success: 0.55 0.13 155;
+    --success-foreground: 0.99 0.005 155;
+    --success-soft: 0.94 0.045 155;
+
+    --warning: 0.68 0.15 55;
+    --warning-foreground: 0.24 0.06 55;
+    --warning-soft: 0.95 0.05 55;
+
+    --info: 0.55 0.13 245;
+    --info-foreground: 0.99 0.005 245;
+    --info-soft: 0.94 0.04 245;
+
+    --violet: 0.55 0.16 300;
+    --violet-foreground: 0.99 0.005 300;
+    --violet-soft: 0.95 0.04 300;
+
+    --border: 0.915 0.006 155;
+    --input: 0.915 0.006 155;
+    --ring: 0.46 0.11 158;
+
+    --chart-1: 0.55 0.13 155;
+    --chart-2: 0.68 0.15 55;
+    --chart-3: 0.55 0.13 245;
+    --chart-4: 0.55 0.16 300;
+    --chart-5: 0.56 0.2 25;
+
+    /* Sidebar */
+    --sidebar: 1 0 0;
+    --sidebar-foreground: 0.28 0.02 155;
+    --sidebar-primary: 0.46 0.11 158;
+    --sidebar-primary-foreground: 0.99 0.005 158;
+    --sidebar-accent: 0.94 0.035 158;
+    --sidebar-accent-foreground: 0.34 0.09 158;
+    --sidebar-border: 0.93 0.006 155;
+    --sidebar-ring: 0.46 0.11 158;
+
+    /* Elevation + gradients */
+    --gradient-primary: linear-gradient(
+      135deg,
+      oklch(0.5 0.12 158),
+      oklch(0.42 0.1 165)
+    );
+    --gradient-subtle: linear-gradient(
+      180deg,
+      oklch(0.985 0.008 158),
+      oklch(0.965 0.006 155)
+    );
+    --gradient-hero: linear-gradient(
+      120deg,
+      oklch(0.46 0.11 158),
+      oklch(0.4 0.09 170) 60%,
+      oklch(0.44 0.1 200)
+    );
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .dark {
+    --background: 0.16 0.012 158;
+    --foreground: 0.95 0.008 155;
+    --card: 0.2 0.014 158;
+    --card-foreground: 0.95 0.008 155;
+    --popover: 0.22 0.014 158;
+    --popover-foreground: 0.95 0.008 155;
+
+    --primary: 0.72 0.13 158;
+    --primary-foreground: 0.16 0.012 158;
+    --primary-soft: 0.28 0.05 158;
+
+    --secondary: 0.24 0.016 158;
+    --secondary-foreground: 0.86 0.01 155;
+    --muted: 0.24 0.016 158;
+    --muted-foreground: 0.62 0.012 155;
+
+    --accent: 0.3 0.06 158;
+    --accent-foreground: 0.88 0.05 158;
+
+    --destructive: 0.65 0.19 25;
+    --destructive-foreground: 0.16 0.012 25;
+    --destructive-soft: 0.3 0.07 25;
+
+    --success: 0.68 0.14 155;
+    --success-foreground: 0.16 0.012 155;
+    --success-soft: 0.3 0.06 155;
+
+    --warning: 0.75 0.15 60;
+    --warning-foreground: 0.2 0.05 60;
+    --warning-soft: 0.32 0.06 60;
+
+    --info: 0.68 0.13 245;
+    --info-foreground: 0.16 0.012 245;
+    --info-soft: 0.3 0.06 245;
+
+    --violet: 0.68 0.15 300;
+    --violet-foreground: 0.16 0.012 300;
+    --violet-soft: 0.32 0.06 300;
+
+    --border: 0.3 0.014 158;
+    --input: 0.3 0.014 158;
+    --ring: 0.72 0.13 158;
+
+    --chart-1: 0.68 0.14 155;
+    --chart-2: 0.75 0.15 60;
+    --chart-3: 0.68 0.13 245;
+    --chart-4: 0.68 0.15 300;
+    --chart-5: 0.65 0.19 25;
+
+    --sidebar: 0.19 0.014 158;
+    --sidebar-foreground: 0.92 0.008 155;
+    --sidebar-primary: 0.72 0.13 158;
+    --sidebar-primary-foreground: 0.16 0.012 158;
+    --sidebar-accent: 0.28 0.05 158;
+    --sidebar-accent-foreground: 0.88 0.05 158;
+    --sidebar-border: 0.3 0.014 158;
+    --sidebar-ring: 0.72 0.13 158;
+
+    --gradient-primary: linear-gradient(
+      135deg,
+      oklch(0.62 0.13 158),
+      oklch(0.5 0.11 168)
+    );
+    --gradient-subtle: linear-gradient(
+      180deg,
+      oklch(0.19 0.014 158),
+      oklch(0.16 0.012 158)
+    );
+    --gradient-hero: linear-gradient(
+      120deg,
+      oklch(0.32 0.07 158),
+      oklch(0.28 0.06 175) 60%,
+      oklch(0.3 0.06 205)
+    );
+  }
+
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground font-body antialiased;
+    font-feature-settings: "kern";
+  }
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-display;
+  }
+}
+
+@layer utilities {
+  .transition-smooth {
+    transition: var(--transition-smooth);
+  }
+  .bg-gradient-primary {
+    background-image: var(--gradient-primary);
+  }
+  .bg-gradient-subtle {
+    background-image: var(--gradient-subtle);
+  }
+  .bg-gradient-hero {
+    background-image: var(--gradient-hero);
+  }
+  .shadow-card {
+    box-shadow: 0 1px 2px oklch(0.46 0.05 158 / 0.04), 0 4px 12px
+      oklch(0.46 0.05 158 / 0.06);
+  }
+  .shadow-elevated {
+    box-shadow: 0 2px 4px oklch(0.46 0.05 158 / 0.05), 0 12px 28px
+      oklch(0.46 0.05 158 / 0.1);
+  }
+  .shadow-soft {
+    box-shadow: 0 1px 3px oklch(0.46 0.05 158 / 0.05);
+  }
+  .text-balance {
+    text-wrap: balance;
+  }
+}

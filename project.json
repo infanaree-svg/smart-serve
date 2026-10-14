@@ -1,0 +1,21 @@
+{
+  "overview": "A Thai-language restaurant operations dashboard for managing orders, queues, riders, promotions, and sales insights.",
+  "features": [
+    "Overview dashboard with sales, profit, order, and wait-time metrics",
+    "Live order queue with status tracking and new-order entry",
+    "Rider delivery tracking with route and ETA",
+    "AI-powered daily sales recommendations",
+    "Promotion management and advance-order time slots",
+    "Menu, ingredient stock, reports, and settings screens",
+    "Monthly package details"
+  ],
+  "category": "dashboard",
+  "tags": [
+    "restaurant",
+    "dashboard",
+    "thai",
+    "operations",
+    "orders"
+  ],
+  "last_updated": "2026-10-14T14:39:09.032Z"
+}

@@ -1,0 +1,187 @@
+// Version: 4.0.0
+type AccessControlState__201339279 =
+  {
+    var adminAssigned : Bool;
+    userRoles : Map__230067015<Principal, UserRole__91647283>
+  };
+type AdvanceSlot__686774348 =
+  {id : Id__389469852; orderCount : Nat; timeLabel : Text};
+type AdvanceSlot__707152938 = {id : Nat; orderCount : Nat; timeLabel : Text};
+type Data__44217153<K, V> = {var count : Nat__227979830; kvs : [var ?(K, V)]};
+type Id__389469852 = Nat;
+type Ingredient__677758915 =
+  {
+    id : Id__389469852;
+    name : Text;
+    quantity : Nat;
+    status : StockStatus__182002752;
+    unit : Text
+  };
+type Ingredient__837846007 =
+  {
+    id : Nat;
+    name : Text;
+    quantity : Nat;
+    status : StockStatus__732142366;
+    unit : Text
+  };
+type Internal__283199666<K, V> =
+  {children : [var ?Node__204828119<K, V>]; data : Data__44217153<K, V>};
+type Leaf__598469445<K, V> = {data : Data__44217153<K, V>};
+type Map__230067015<K, V> = Map__405889023<K, V>;
+type Map__405889023<K, V> = Map__603270868<K, V>;
+type Map__603270868<K, V> =
+  {var root : Node__204828119<K, V>; var size : Nat__227979830};
+type MenuItem__25360883 =
+  {
+    category : Text;
+    id : Id__389469852;
+    name : Text;
+    price : Satang__33354574
+  };
+type MenuItem__798971246 =
+  {category : Text; id : Nat; name : Text; price : Nat};
+type Nat__227979830 = Nat__920180692;
+type Nat__920180692 = Nat;
+type NewActor__272389141 =
+  {
+    accessControlState : AccessControlState__201339279;
+    advanceSlots : Map__230067015<Nat, AdvanceSlot__707152938>;
+    ingredients : Map__230067015<Nat, Ingredient__837846007>;
+    menuItems : Map__230067015<Nat, MenuItem__798971246>;
+    nextMenuItemId : {var value : Nat};
+    nextOrderId : {var value : Nat};
+    nextPromotionId : {var value : Nat};
+    orders : Map__230067015<Nat, Order__634230238>;
+    promotions : Map__230067015<Nat, Promotion__441049607>;
+    riders : Map__230067015<Nat, Rider__614479010>;
+    settings : {var value : Settings__65704532}
+  };
+type Node__204828119<K, V> =
+  {#internal : Internal__283199666<K, V>; #leaf : Leaf__598469445<K, V>};
+type OldActor__63864446 = {};
+type OrderChannel__386958133 = {#dineIn; #online};
+type OrderChannel__799918211 = {#dineIn; #online};
+type OrderStatus__272730104 = {#awaitingPickup; #completed; #preparing};
+type OrderStatus__92091517 = {#awaitingPickup; #completed; #preparing};
+type Order__141779993 =
+  {
+    channel : OrderChannel__799918211;
+    expectedAt : Timestamp__301639476;
+    id : Id__389469852;
+    menuName : Text;
+    orderNumber : Text;
+    orderedAt : Timestamp__301639476;
+    status : OrderStatus__272730104
+  };
+type Order__634230238 =
+  {
+    channel : OrderChannel__386958133;
+    expectedAt : Nat;
+    id : Nat;
+    menuName : Text;
+    orderNumber : Text;
+    orderedAt : Nat;
+    status : OrderStatus__92091517
+  };
+type Promotion__361758920 =
+  {
+    active : Bool;
+    discountPercent : Nat;
+    id : Id__389469852;
+    name : Text;
+    projectedOrderLiftPercent : Nat;
+    targetGroup : Text
+  };
+type Promotion__441049607 =
+  {
+    active : Bool;
+    discountPercent : Nat;
+    id : Nat;
+    name : Text;
+    projectedOrderLiftPercent : Nat;
+    targetGroup : Text
+  };
+type RiderStatus__528554829 = {#delivering; #enRoute; #idle};
+type RiderStatus__556698825 = {#delivering; #enRoute; #idle};
+type Rider__614479010 =
+  {
+    distanceKm : Float;
+    etaMinutes : Nat;
+    id : Nat;
+    name : Text;
+    rating : Float;
+    status : RiderStatus__556698825
+  };
+type Rider__902580444 =
+  {
+    distanceKm : Float;
+    etaMinutes : Nat;
+    id : Id__389469852;
+    name : Text;
+    rating : Float;
+    status : RiderStatus__528554829
+  };
+type Satang__33354574 = Nat;
+type Settings__65704532 =
+  {
+    averagePrepMinutes : Nat;
+    closeTime : Text;
+    openTime : Text;
+    restaurantName : Text
+  };
+type Settings__730698590 =
+  {
+    averagePrepMinutes : Nat;
+    closeTime : Text;
+    openTime : Text;
+    restaurantName : Text
+  };
+type StockStatus__182002752 = {#expiringSoon; #fresh; #low};
+type StockStatus__732142366 = {#expiringSoon; #fresh; #low};
+type Timestamp__301639476 = Nat;
+type UserRole__91647283 = {#admin; #guest; #user};
+{
+  "20261014_150000" : OldActor__63864446 -> NewActor__272389141
+}
+actor  {
+  stable accessControlState :
+    {
+      var adminAssigned : Bool;
+      userRoles : Map__230067015<Principal, UserRole__91647283>
+    };
+  stable advanceSlots :
+    {
+      var root : Node__204828119<Nat, AdvanceSlot__686774348>;
+      var size : Nat__227979830
+    };
+  stable ingredients :
+    {
+      var root : Node__204828119<Nat, Ingredient__677758915>;
+      var size : Nat__227979830
+    };
+  stable menuItems :
+    {
+      var root : Node__204828119<Nat, MenuItem__25360883>;
+      var size : Nat__227979830
+    };
+  stable nextMenuItemId : {var value : Nat};
+  stable nextOrderId : {var value : Nat};
+  stable nextPromotionId : {var value : Nat};
+  stable orders :
+    {
+      var root : Node__204828119<Nat, Order__141779993>;
+      var size : Nat__227979830
+    };
+  stable promotions :
+    {
+      var root : Node__204828119<Nat, Promotion__361758920>;
+      var size : Nat__227979830
+    };
+  stable riders :
+    {
+      var root : Node__204828119<Nat, Rider__902580444>;
+      var size : Nat__227979830
+    };
+  stable settings : {var value : Settings__730698590}
+};

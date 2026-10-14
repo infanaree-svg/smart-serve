@@ -1,0 +1,285 @@
+type Value = 
+ variant {
+   "bool": bool;
+   float: float64;
+   "int": int;
+   "nat": nat;
+   "null";
+   "text": text;
+ };
+type UserRole = 
+ variant {
+   admin;
+   guest;
+   user;
+ };
+type Timestamp = nat;
+type StockStatus = 
+ variant {
+   expiringSoon;
+   fresh;
+   low;
+ };
+type SettingsUpdate = 
+ record {
+   averagePrepMinutes: nat;
+   closeTime: text;
+   openTime: text;
+   restaurantName: text;
+ };
+type Settings = 
+ record {
+   averagePrepMinutes: nat;
+   closeTime: text;
+   openTime: text;
+   restaurantName: text;
+ };
+type Satang = nat;
+type SalesReport = 
+ record {
+   series: vec SalesPoint;
+   totalOrders: nat;
+   totalSales: Satang;
+ };
+type SalesPoint = 
+ record {
+   orders: nat;
+   sales: Satang;
+   timeLabel: text;
+ };
+type RiderStatus = 
+ variant {
+   delivering;
+   enRoute;
+   idle;
+ };
+type Rider = 
+ record {
+   distanceKm: float64;
+   etaMinutes: nat;
+   id: Id;
+   name: text;
+   rating: float64;
+   status: RiderStatus;
+ };
+type Result__1 = 
+ variant {
+   err: Error;
+   ok;
+ };
+type Result = 
+ record {
+   hasMore: bool;
+   rows: vec vec Cell;
+ };
+type Recommendation = 
+ record {
+   detail: text;
+   title: text;
+ };
+type QueueSummary = 
+ record {
+   dineInCount: nat;
+   onlineCount: nat;
+   totalCount: nat;
+ };
+type Promotion = 
+ record {
+   active: bool;
+   discountPercent: nat;
+   id: Id;
+   name: text;
+   projectedOrderLiftPercent: nat;
+   targetGroup: text;
+ };
+type PackageInfo = 
+ record {
+   badge: text;
+   features: vec text;
+   pricePerMonth: Satang;
+   trialLabel: text;
+ };
+type OrderStatus = 
+ variant {
+   awaitingPickup;
+   completed;
+   preparing;
+ };
+type OrderFilter = 
+ record {
+   search: opt text;
+   status: opt OrderStatus;
+ };
+type OrderChannel = 
+ variant {
+   dineIn;
+   online;
+ };
+type Order = 
+ record {
+   channel: OrderChannel;
+   expectedAt: Timestamp;
+   id: Id;
+   menuName: text;
+   orderNumber: text;
+   orderedAt: Timestamp;
+   status: OrderStatus;
+ };
+type NewPromotion = 
+ record {
+   discountPercent: nat;
+   name: text;
+   targetGroup: text;
+ };
+type NewOrder = 
+ record {
+   channel: OrderChannel;
+   expectedAt: Timestamp;
+   menuName: text;
+   orderedAt: Timestamp;
+ };
+type NewMenuItem = 
+ record {
+   category: text;
+   name: text;
+   price: Satang;
+ };
+type MenuItemUpdate = 
+ record {
+   category: text;
+   name: text;
+   price: Satang;
+ };
+type MenuItem = 
+ record {
+   category: text;
+   id: Id;
+   name: text;
+   price: Satang;
+ };
+type KpiSummary = 
+ record {
+   averageWait: Kpi;
+   estimatedProfit: Kpi;
+   orders: Kpi;
+   todaySales: Kpi;
+ };
+type Kpi = 
+ record {
+   changeLabel: text;
+   changePercent: float64;
+   timeLabel: text;
+   value: text;
+ };
+type IngredientUpdate = 
+ record {
+   quantity: nat;
+   status: StockStatus;
+ };
+type Ingredient = 
+ record {
+   id: Id;
+   name: text;
+   quantity: nat;
+   status: StockStatus;
+   unit: text;
+ };
+type Id = nat;
+type Error = 
+ variant {
+   AmbiguousAttribute: record {
+                         field: text;
+                         sources: vec text;
+                       };
+   FrontendOriginMismatch: record {
+                             expected: vec text;
+                             got: text;
+                           };
+   FrontendOriginsNotConfigured;
+   MalformedCandid;
+   MissingField: text;
+   MixedSsoSources: record {
+                      otherKeys: vec text;
+                      ssoKeys: vec text;
+                    };
+   NoAttributes;
+   Stale: record {ageNs: nat;};
+   UnknownNonce;
+   UntrustedSsoSource: record {domain: text;};
+ };
+type DeliverySummary = 
+ record {
+   delivering: nat;
+   dineInQueue: nat;
+   onlineOrders: nat;
+ };
+type DailyRecommendation = 
+ record {
+   generatedAt: nat;
+   items: vec Recommendation;
+ };
+type Cell = 
+ record {
+   name: text;
+   value: Value;
+ };
+type AdvanceSlot = 
+ record {
+   id: Id;
+   orderCount: nat;
+   timeLabel: text;
+ };
+service : {
+  _initialize_access_control: () -> ();
+  _internet_identity_sign_in_finish: () -> (Result__1);
+  _internet_identity_sign_in_start: () -> (blob);
+  /// Advances an order to its next status.
+  advanceOrderStatus: (id: nat) -> (opt Order);
+  assignCallerUserRole: (user: principal, role: UserRole) -> ();
+  /// Creates a menu item.
+  createMenuItem: (input: NewMenuItem) -> (MenuItem);
+  /// Creates a new order.
+  createOrder: (input: NewOrder) -> (Order);
+  /// Creates a promotion.
+  createPromotion: (input: NewPromotion) -> (Promotion);
+  /// Deletes a menu item.
+  deleteMenuItem: (id: nat) -> (bool);
+  execute: (qJson: text) -> (Result) query;
+  /// Returns the backend's behavioral API documentation as Markdown.
+  getApiDoc: () -> (text) query;
+  getCallerUserRole: () -> (UserRole) query;
+  /// Returns the queue and delivery counts.
+  getDeliverySummary: () -> (DeliverySummary) query;
+  /// Returns the dashboard KPI set.
+  getKpiSummary: () -> (KpiSummary) query;
+  /// Returns the monthly subscription package details.
+  getPackageInfo: () -> (PackageInfo) query;
+  /// Returns counts of orders grouped by channel.
+  getQueueSummary: () -> (QueueSummary) query;
+  /// Returns the sales report for the given period label.
+  getSalesReport: (period: text) -> (SalesReport) query;
+  /// Returns the restaurant settings.
+  getSettings: () -> (Settings) query;
+  isCallerAdmin: () -> (bool) query;
+  /// Lists the pre-order time slots with their order counts.
+  listAdvanceSlots: () -> (vec AdvanceSlot) query;
+  /// Lists all ingredients with their stock levels.
+  listIngredients: () -> (vec Ingredient) query;
+  /// Lists all menu items.
+  listMenuItems: () -> (vec MenuItem) query;
+  /// Lists orders, optionally filtered by status and/or search term.
+  listOrders: (filter: OrderFilter) -> (vec Order) query;
+  /// Lists all active promotions.
+  listPromotions: () -> (vec Promotion) query;
+  /// Lists riders currently delivering or en route.
+  listRiders: () -> (vec Rider) query;
+  /// Generates a fresh AI daily recommendation from sales and customer behaviour.
+  refreshRecommendation: () -> (DailyRecommendation);
+  schema: () -> (text) query;
+  /// Updates an ingredient's stock.
+  updateIngredient: (id: nat, input: IngredientUpdate) -> (opt Ingredient);
+  /// Updates a menu item.
+  updateMenuItem: (id: nat, input: MenuItemUpdate) -> (opt MenuItem);
+  /// Updates the restaurant settings.
+  updateSettings: (input: SettingsUpdate) -> (Settings);
+}
